@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
-
 public class AnimalFarm {
     private final List<String> farmAnimals;
 
@@ -15,30 +14,30 @@ public class AnimalFarm {
     }
 
     public Map<Animal, Integer> countedAnimals() {
-        Map<Animal, Integer> animalMap = new HashMap<>();
-        for (String stringInList : farmAnimals) {
-            String[] wordsInString = stringInList.split(" ");
+        Map<Animal, Integer> result = new HashMap<>();
+        for (String farmAnimal : farmAnimals) {
+            String[] wordsInString = farmAnimal.split(" ");
             try {
                 Animal animal = Animal.valueOf(wordsInString[0]);
-                animalMap.put(animal, animalMap.getOrDefault(animal, 0) + 1);
+                result.put(animal, result.getOrDefault(animal, 0) + 1);
             } catch (IllegalArgumentException exception) {
-                System.out.println("Please correct string '" + stringInList + "'. Incorrect input data.");
+                System.out.println("Please correct string '" + farmAnimal + "'. Incorrect input data.");
             }
         }
-        return animalMap;
+        return result;
     }
 
     public Set<String> uniqueNames() {
-        Set<String> animalSet = new HashSet<>();
+        Set<String> result = new HashSet<>();
         for (String stringInList : farmAnimals) {
             String[] wordsInString = stringInList.split(" ");
             try {
-                animalSet.add(wordsInString[1]);
+                result.add(wordsInString[1]);
             } catch (ArrayIndexOutOfBoundsException exception) {
                 System.out.println("Please correct string '" + stringInList + "'. Incorrect input data.");
             }
         }
-        return animalSet;
+        return result;
     }
 
     public void addAnimal(Animal animal, String name) {
