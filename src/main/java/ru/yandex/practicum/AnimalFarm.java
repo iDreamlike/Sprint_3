@@ -29,12 +29,12 @@ public class AnimalFarm {
 
     public Set<String> uniqueNames() {
         Set<String> result = new HashSet<>();
-        for (String stringInList : farmAnimals) {
-            String[] wordsInString = stringInList.split(" ");
+        for (String farmAnimal : farmAnimals) {
+            String[] wordsInString = farmAnimal.split(" ");
             try {
                 result.add(wordsInString[1]);
             } catch (ArrayIndexOutOfBoundsException exception) {
-                System.out.println("Please correct string '" + stringInList + "'. Incorrect input data.");
+                System.out.println("Please correct string '" + farmAnimal + "'. Incorrect input data.");
             }
         }
         return result;
