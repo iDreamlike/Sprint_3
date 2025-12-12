@@ -16,43 +16,59 @@ public class AnimalFarm {
     public Map<Animal, Integer> countedAnimals() {
         Map<Animal, Integer> result = new HashMap<>();
         for (String farmAnimal : farmAnimals) {
-            String[] wordsInString = farmAnimal.split(" ");
             try {
-                Animal animal = Animal.valueOf(wordsInString[0]);
-                result.put(animal, result.getOrDefault(animal, 0) + 1);
+                Animal animal = extractAnimal(farmAnimal);
+                result.put(animal, countOfAnimals(result, animal));
             } catch (IllegalArgumentException exception) {
-                System.out.println("Please correct string '" + farmAnimal + "'. Incorrect input data.");
+                System.out.printf("Please correct string '%s'. Incorrect input data.", farmAnimal);
             }
         }
         return result;
+    }
+
+    private static Animal extractAnimal(String farmAnimal) {
+        String[] wordsInString = farmAnimal.split(" ");
+        return Animal.valueOf(wordsInString[0]);
+    }
+
+    private static int countOfAnimals(Map<Animal, Integer> result, Animal animal) {
+        return result.getOrDefault(animal, 0) + 1;
     }
 
     public Set<String> uniqueNames() {
         Set<String> result = new HashSet<>();
         for (String farmAnimal : farmAnimals) {
-            String[] wordsInString = farmAnimal.split(" ");
             try {
-                result.add(wordsInString[1]);
+                extractName(farmAnimal, result);
             } catch (ArrayIndexOutOfBoundsException exception) {
-                System.out.println("Please correct string '" + farmAnimal + "'. Incorrect input data.");
+                System.out.printf("Please correct string '%s'. Incorrect input data.", farmAnimal);
             }
         }
         return result;
     }
 
+    private static void extractName(String farmAnimal, Set<String> result) {
+        String[] wordsInString = farmAnimal.split(" ");
+        result.add(wordsInString[1]);
+    }
+
     public void addAnimal(Animal animal, String name) {
-        farmAnimals.add(animal.toString() + " " + name);
-        System.out.println("Добавили новое животное: " + animal + " " + name);
+        farmAnimals.add(formatAnimal(animal, name));
+        System.out.printf("Добавили новое животное: %s %s\n", animal, name);
     }
 
     public void addAnimal(Animal animal) {
-        farmAnimals.add(animal.toString() + " N");
-        System.out.println("Добавили новое животное: " + animal + " N");
+        farmAnimals.add(formatAnimal(animal,"N"));
+        System.out.printf("Добавили новое животное: %s N\n" , animal);
     }
 
     public void addAnimal(String name) {
-        farmAnimals.add(Animal.NOT_DEFINED + " " + name);
-        System.out.println("Добавили новое животное: " + Animal.NOT_DEFINED + " " + name);
+        farmAnimals.add(formatAnimal(Animal.NOT_DEFINED, name));
+        System.out.printf("Добавили новое животное: %s %s\n", Animal.NOT_DEFINED, name);
+    }
+
+    private static String formatAnimal(Animal type, String name) {
+        return type + " " + name;
     }
 
     @Override

@@ -5,7 +5,6 @@ import java.util.Arrays;
 
 class Main {
     public static void main(String[] args) {
-
         AnimalFarm farm = new AnimalFarm(new ArrayList<>(Arrays.asList(
                 "DOG Тузик",
                 "CAT Кеша",
