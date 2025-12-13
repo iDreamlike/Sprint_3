@@ -8,6 +8,8 @@ import java.util.HashMap;
 
 public class AnimalFarm {
     private final List<String> farmAnimals;
+    private final String INCORRECT_INPUT_MESSAGE = "Please correct string '%s'. Incorrect input data.";
+    private final String SUCCESS_ADDING_ANIMAL_MESSAGE = "Добавили новое животное:";
 
     public AnimalFarm(List<String> farmAnimals) {
         this.farmAnimals = farmAnimals;
@@ -20,7 +22,7 @@ public class AnimalFarm {
                 Animal animal = extractAnimal(farmAnimal);
                 result.put(animal, countOfAnimals(result, animal));
             } catch (IllegalArgumentException exception) {
-                System.out.printf("Please correct string '%s'. Incorrect input data.", farmAnimal);
+                System.out.printf(INCORRECT_INPUT_MESSAGE, farmAnimal);
             }
         }
         return result;
@@ -41,7 +43,7 @@ public class AnimalFarm {
             try {
                 extractName(farmAnimal, result);
             } catch (ArrayIndexOutOfBoundsException exception) {
-                System.out.printf("Please correct string '%s'. Incorrect input data.", farmAnimal);
+                System.out.printf(INCORRECT_INPUT_MESSAGE, farmAnimal);
             }
         }
         return result;
@@ -54,17 +56,17 @@ public class AnimalFarm {
 
     public void addAnimal(Animal animal, String name) {
         farmAnimals.add(formatAnimal(animal, name));
-        System.out.printf("Добавили новое животное: %s %s\n", animal, name);
+        System.out.printf("%s %s %s\n", SUCCESS_ADDING_ANIMAL_MESSAGE, animal, name);
     }
 
     public void addAnimal(Animal animal) {
         farmAnimals.add(formatAnimal(animal,"N"));
-        System.out.printf("Добавили новое животное: %s N\n" , animal);
+        System.out.printf("%s %s N\n", SUCCESS_ADDING_ANIMAL_MESSAGE , animal);
     }
 
     public void addAnimal(String name) {
         farmAnimals.add(formatAnimal(Animal.NOT_DEFINED, name));
-        System.out.printf("Добавили новое животное: %s %s\n", Animal.NOT_DEFINED, name);
+        System.out.printf("%s %s %s\n", SUCCESS_ADDING_ANIMAL_MESSAGE, Animal.NOT_DEFINED, name);
     }
 
     private static String formatAnimal(Animal type, String name) {
